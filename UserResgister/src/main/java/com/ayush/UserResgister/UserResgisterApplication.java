@@ -15,11 +15,12 @@ public class UserResgisterApplication {
 		ApplicationContext context=SpringApplication.run(UserResgisterApplication.class, args);
 
 		User user= context.getBean(User.class);
-		user.setEmail("ayubajaj06@gmail.com");
+		user.setEmail("ayubajaj07@gmail.com");
 		user.setPassword("Abcdecf@01");
 		UserService service=context.getBean(UserService.class);
 		service.addUser(user);
 		List<User> allUsers=service.allUsers();
+		System.out.println(allUsers);
 	}
 
 }
