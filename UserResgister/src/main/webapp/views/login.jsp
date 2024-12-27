@@ -18,7 +18,7 @@
         <button type="submit" value="Submit">Login</button>
       </div>
       <div>
-        <button type="submit" value="Submit">Sign Up</button>
+        <button  type="button" value="signup" >Sign Up</button>
       </div>
     </div>
   </div>

@@ -2,5 +2,6 @@
 
 <html>
 
-<p>Thank you for login</p>
+
+<p>${result}</p>
 </html>

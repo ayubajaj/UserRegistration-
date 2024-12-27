@@ -20,8 +20,12 @@ public class UserService {
         this.repo = repo;
     }
 
-    public void addUser(User user) {
-        repo.save(user);
+    public String addUser(User user) {
+        try {
+            return repo.save(user);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     public List<User> allUsers() {

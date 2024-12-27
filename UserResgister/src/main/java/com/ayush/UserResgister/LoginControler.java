@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginControler {
@@ -15,15 +17,23 @@ public class LoginControler {
     public String home()
     {
         System.out.println("home page");
-        return "login.jsp";
+        return "signup";
+    }
+    @RequestMapping("signup")
+    public String signup()
+    {
+
+        return "signup";
     }
     @RequestMapping("add")
-    public String req(HttpServletRequest req)
+    public ModelAndView req(@RequestParam("email") String email, @RequestParam("password") String password, ModelAndView mv)
     {  User user=new User();
 
-      user.setEmail(req.getParameter("email"));
-     user.setPassword(req.getParameter("password"));
-       service.addUser(user);
-        return "Confirm.jsp";
+      user.setEmail(password);
+     user.setPassword(password);
+     String result =service.addUser(user);
+     mv.addObject("result",result);
+     mv.setViewName("Confirm");
+     return mv;
     }
 }

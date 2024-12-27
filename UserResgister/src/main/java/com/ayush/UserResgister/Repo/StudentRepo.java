@@ -19,10 +19,13 @@ public class StudentRepo {
     public JdbcTemplate getJdbc() {
         return jdbc;
     }
-    public void save(User user) {
+    public String save(User user) throws Exception {
         String sql;
         sql = "insert into users (emailid, password) values (?,?)";
-        int rows =jdbc.update(sql,user.getEmail(),user.getPassword());
+       int row =jdbc.update(sql,user.getEmail(),user.getPassword());
+           return row+" "+"updated";
+
+
 
 
 
