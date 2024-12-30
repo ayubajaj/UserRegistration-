@@ -5,7 +5,7 @@
 </head>
 
 <html>
-<form action="add" method="post">
+<form >
   <div class="outer-box">
     <div class="email">
       <input class="input" type="text" placeholder="Email" id="email" name="email"/>
@@ -15,10 +15,10 @@
     </div>
     <div class="buttons">
       <div>
-        <button type="submit" value="Submit">Login</button>
+        <button formaction="login" method="post" type="submit" value="Submit" name="signin">Login</button>
       </div>
       <div>
-        <button  type="button" value="signup" >Sign Up</button>
+        <button formaction="signup" >Sign Up</button>
       </div>
     </div>
   </div>

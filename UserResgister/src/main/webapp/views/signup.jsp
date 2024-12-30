@@ -16,7 +16,7 @@
     <div class="buttons">
 
       <div>
-        <button type="submit" value="Submit">Sign Up</button>
+        <button formaction="add" type="submit" value="Submit">Sign Up</button>
       </div>
     </div>
   </div>
