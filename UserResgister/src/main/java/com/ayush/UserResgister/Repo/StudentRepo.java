@@ -2,13 +2,19 @@ package com.ayush.UserResgister.Repo;
 
 import com.ayush.UserResgister.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+
 @Component
 public class StudentRepo {
     private JdbcTemplate jdbc;
@@ -49,6 +55,31 @@ public class StudentRepo {
         };
 
         return jdbc.query(sql,mapper);
+
+    }
+
+    public String checkUser(User user) {
+        String sql1="select exists (select 1 from users where emailid=?)";
+        String sql2="select exists (select 1 from users where emailid=? and password=?)";
+            Boolean mailcheck=jdbc.queryForObject(sql1,new Object[]{user.getEmail()},Boolean.class);
+            Boolean passwordcheck=jdbc.queryForObject(sql2,new Object[]{user.getEmail(),user.getPassword()},Boolean.class);
+            if(!Boolean.TRUE.equals(mailcheck))
+            {
+                return "data doesn't exist";
+            }
+            if(Boolean.TRUE.equals(passwordcheck))
+            {
+                return "welcome";
+            }
+            else {
+                return "wrong password";
+            }
+
+
+
+
+
+
 
     }
 }

@@ -17,19 +17,33 @@ public class LoginControler {
     public String home()
     {
         System.out.println("home page");
-        return "signup";
+        return "login";
     }
     @RequestMapping("signup")
-    public String signup()
+    public ModelAndView signup(ModelAndView mv)
     {
+        mv.setViewName("signup");
+        return mv;
+    }
+    @RequestMapping("login")
+    public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password, ModelAndView mv)
+    {
+        User user=new User();
 
-        return "signup";
+        user.setEmail(email);
+        user.setPassword(password);
+
+
+        String result =service.checkUser(user);
+        mv.addObject("result",result);
+        mv.setViewName("loggedin");
+        return mv;
     }
     @RequestMapping("add")
     public ModelAndView req(@RequestParam("email") String email, @RequestParam("password") String password, ModelAndView mv)
     {  User user=new User();
 
-      user.setEmail(password);
+      user.setEmail(email);
      user.setPassword(password);
      String result =service.addUser(user);
      mv.addObject("result",result);

@@ -31,4 +31,13 @@ public class UserService {
     public List<User> allUsers() {
         return repo.getAll();
     }
+
+    public String checkUser(User user) {
+        try {
+            return repo.checkUser(user);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
+    }
 }
