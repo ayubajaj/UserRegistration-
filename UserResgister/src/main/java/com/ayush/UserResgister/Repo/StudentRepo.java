@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,9 +77,27 @@ public class StudentRepo {
             }
 
 
+    }
+    public User getUserByUsername(String username) throws SQLException {
 
 
+        String sql = "select * from users where emailid=?";
+        List <User> details = jdbc.query(
+                sql, new PreparedStatementSetter() {
 
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setString(1, username);
+                    }
+                },
+                (rs, rowNum) -> {
+                    User u=new User();
+                    u.setEmail(rs.getString("emailid"));
+                    u.setPassword(rs.getString("password"));
+                    return u;
+
+                });
+
+        return details.get(0);
 
 
     }

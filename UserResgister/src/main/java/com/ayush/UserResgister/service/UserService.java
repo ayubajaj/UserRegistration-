@@ -2,15 +2,22 @@ package com.ayush.UserResgister.service;
 
 import com.ayush.UserResgister.Repo.StudentRepo;
 import com.ayush.UserResgister.model.User;
+import com.ayush.UserResgister.model.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
-@Component
-public class UserService {
+@Service
+public class UserService implements UserDetailsService {
 
-    StudentRepo repo;
+    @Autowired
+    private StudentRepo repo;
 
     public StudentRepo getRepo() {
         return repo;
@@ -39,5 +46,21 @@ public class UserService {
             return e.getMessage();
         }
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user= null;
+        try {
+            user = repo.getUserByUsername(username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if(user==null)
+        { System.out.println("User 404");
+            throw new UsernameNotFoundException("User 404");
+
+        }
+        return new UserPrincipal(user);
     }
 }
